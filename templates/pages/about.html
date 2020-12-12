@@ -1,0 +1,136 @@
+{% extends 'base.html' %} 
+
+{% load static %}
+
+{% block title %} | About Us {% endblock %}
+
+{% block content %}
+<section id="showcase-inner" class="py-5 text-white">
+    <div class="container">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <h1 class="display-4">About Rent It</h1>
+          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <section id="bc" class="mt-3">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="{% url 'index' %}">
+              <i class="fas fa-home"></i> Home</a>
+          </li>
+          <li class="breadcrumb-item active"> About</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section id="about" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Rent For The Perfect Product</h2>
+          <p class="lead">A rental service website that customers can post goods for rent, and also select goods to rent. This service will keep track of customers, the different objects for rent, and if they are available or in use currently. We will set this up for a few types of goods initially, and branch out to more, given time.!</p>
+          <img src="{% static 'img/about.jpg' %}" alt="" style="position: center">
+          <p class="mt-4"></p>
+        </div>
+        <div class="col-md-4">
+          {% if mvp_realtors %}
+            {% for realtor in mvp_realtors %}
+            <div class="card">
+                <img class="card-img-top" src="{{ realtor.photo.url }}" alt="Seller of the month">
+                <div class="card-body">
+                  <h5 class="card-title">Seller Of The Month</h5>
+                  <h6 class="text-secondary">{{ realtor.name }}</h6>
+                  <p class="card-text">{{ realtor.description }}
+                  </p>
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work -->
+  <section id="work" class="bg-dark text-white text-center">
+    <h2 class="display-4">We Work For You</h2>
+    <h4>Americans spend trillions of dollars each year on new stuff, billions each year on storage units, and every day, they throw tons of their stuff away.</h4>
+    <hr>
+    <a href="{% url 'listings' %}" class="btn btn-secondary text-white btn-lg">View Our Featured Listings</a>
+  </section>
+
+  <!-- Team -->
+  <section id="team" class="py-5">
+    <div class="container">
+      <h2 class="text-center">Our Team</h2>
+      <div class="row text-center">
+          <div class="col-md-4">
+              <img src="media/tejas.png" alt="" class="rounded-circle mb-3" height="350">
+              <h4>Tejas</h4>
+              <p class="text-success">
+                <i class="fas fa-award text-success mb-3"></i> Developer</p>
+              <hr>
+              <p>
+                <i class="fas fa-phone"></i> +1 315 380 9524</p>
+              <p>
+                <i class="fas fa-envelope-open"></i> temehta@syr.edu</p>
+            </div>
+          <div class="col-md-4">
+              <img src="media/photos/sahil.jpeg" alt="" class="rounded-circle mb-3">
+              <h4>Tejas</h4>
+              <p class="text-success">
+                <i class="fas fa-award text-success mb-3"></i> Developer</p>
+              <hr>
+              <p>
+                <i class="fas fa-phone"></i> +1 315 380 8095</p>
+              <p>
+                <i class="fas fa-envelope-open"></i> sasehgal@syr.edu</p>
+            </div>
+
+          <div class="col-md-4">
+              <img src="media/photos/ak.jpeg" alt="" class="rounded-circle mb-3">
+              <h4>Akshay</h4>
+              <p class="text-success">
+                <i class="fas fa-award text-success mb-3"></i> Developer</p>
+              <hr>
+              <p>
+                <i class="fas fa-phone"></i> +1 315 380 5375</p>
+              <p>
+                <i class="fas fa-envelope-open"></i> akmahaja@syr.edu</p>
+            </div>
+      </div>
+          <div class="row text-center">
+          <div class="col-md-4">
+              <img src="media/photos/aditi.jpeg" alt="" class="rounded-circle mb-3">
+              <h4>aditi</h4>
+              <p class="text-success">
+                <i class="fas fa-award text-success mb-3"></i> Developer</p>
+              <hr>
+              <p>
+                <i class="fas fa-phone"></i> +1 315 380 5375</p>
+              <p>
+                <i class="fas fa-envelope-open"></i> admallesh@syr.edu</p>
+            </div>
+          <div class="col-md-4">
+              <img src="media/photos/nikhil.jpeg" alt="" class="rounded-circle mb-3">
+              <h4>Nikhil</h4>
+              <p class="text-success">
+                <i class="fas fa-award text-success mb-3"></i> Developer</p>
+              <hr>
+              <p>
+                <i class="fas fa-phone"></i> +1 315 380 4532</p>
+              <p>
+                <i class="fas fa-envelope-open"></i> nrgohil@syr.edu</p>
+            </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
