@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 
 {% load humanize %}
-
-{% block title %} | Browse Property Listings {% endblock %}
+{% load mathfilters %}
+{% block title %} | Browse Listings {% endblock %}
 
 {% block content %}
 <section id="showcase-inner" class="py-5 text-white">
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12">
-          <h1 class="display-4">Browse Our Properties</h1>
-          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt, pariatur!</p>
+          <h1 class="display-4">Browse Our Products</h1>
+          <p class="lead"></p>
         </div>
       </div>
     </div>
@@ -34,35 +34,35 @@
   <!-- Listings -->
   <section id="listings" class="py-4">
     <div class="container">
-      <div class="row">
+        <div class="row">
         {% if listings %}
           {% for listing in listings %}
           <div class="col-md-6 col-lg-4 mb-4">
               <div class="card listing-preview">
-                <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+                <img class="card-img-top" src="{{ listing.image.0 |slice:"1:-1"}}" alt="" height="200!important" min-height="200!important">
                 <div class="card-img-overlay">
                   <h2>
-                    <span class="badge badge-secondary text-white">${{ listing.price | intcomma }}</span>
+                    <span class="badge badge-secondary text-white">${{ listing.discounted_price|intdiv:70 | intcomma }}</span>
                   </h2>
                 </div>
                 <div class="card-body">
                   <div class="listing-heading text-center">
-                    <h4 class="text-primary">{{ listing.title }}</h4>
+                    <h4 class="text-primary">{{ listing.product_name }}</h4>
                     <p>
-                      <i class="fas fa-map-marker text-secondary"></i> {{ listing.city }} {{ listing.state }}, {{ listing.zipcode }}</p>
+                      <i class="fas text-secondary"></i> Ratings: {{ listing.overall_rating }} </p>
                   </div>
                   <hr>
                   <div class="row py-2 text-secondary">
                     <div class="col-6">
-                      <i class="fas fa-th-large"></i> Sqft: {{ listing.sqft }}</div>
+                      <i class="fas fa-th-large"></i> Brand: {{ listing.brand }}</div>
                     <div class="col-6">
-                      <i class="fas fa-car"></i> Garage: {{ listing.garage }}</div>
+                      <i class="fas fa-dollar-sign"></i> Retail Price: ${{ listing.retail_price |intdiv:70 | intcomma}}</div>
                   </div>
                   <div class="row py-2 text-secondary">
                     <div class="col-6">
-                      <i class="fas fa-bed"></i> Bedrooms: {{ listing.bedrooms }}</div>
+                      <i class="fas fa-deskpro" title="{{ listing.description }}"></i> Descriptions: {{ listing.description|slice:":20" }}</div>
                     <div class="col-6">
-                      <i class="fas fa-bath"></i> Bathrooms: {{ listing.bathrooms }}</div>
+                      <i class="fas fa-deploydog"></i> Next-Day Delivery: {{ listing.is_FK_Advantage_product|yesno:"Yes,No" }}</div>
                   </div>
                   <hr>
                   <div class="row py-2 text-secondary">
@@ -71,7 +71,7 @@
                   </div>
                   <div class="row text-secondary pb-2">
                     <div class="col-6">
-                      <i class="fas fa-clock"></i> {{ listing.list_date | timesince }}</div>
+                      <i class="fas fa-clock"></i> {{ listing.crawl_timestamp | timesince }}</div>
                   </div>
                   <hr>
                   <a href="{% url 'listing' listing.id %}" class="btn btn-primary btn-block">More Info</a>
@@ -84,6 +84,7 @@
             <p>No Listings Available</p>
           </div>
         {% endif %}
+        </div>
       </div>
 
       <div class="row">

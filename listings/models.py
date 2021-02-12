@@ -33,3 +33,23 @@ class Listing(models.Model):
   @property 
   def owner(self):
     return self.user
+
+
+
+class Listing_FK(models.Model):
+  uniq_id = models.TextField(blank=True)
+  crawl_timestamp = models.DateTimeField(blank=True)
+  product_url = models.TextField(blank=True)
+  product_name = models.TextField(blank=True)
+  product_category_tree = models.TextField(blank=True)
+  pid = models.TextField(blank=True)
+  retail_price = models.TextField(blank=True)
+  discounted_price = models.TextField(blank=True)
+  image = models.TextField(blank=True)
+  is_FK_Advantage_product = models.TextField(blank=True)
+  description = models.TextField(blank=True)
+  product_rating = models.TextField(blank=True)
+  overall_rating = models.TextField(blank=True)
+  brand = models.TextField(blank=True)
+  product_specifications = models.TextField(blank=True)
+  list_date = models.DateTimeField(default=datetime.now, blank=True)

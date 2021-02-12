@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Realtor
+from .models import *
 
 # Register your models here.
 
@@ -9,4 +9,5 @@ class RealtorAdmin(admin.ModelAdmin):
   search_fields = ('name',)
   list_per_page = 25
 
-admin.site.register(Realtor, RealtorAdmin)
+# admin.site.register(Realtor, RealtorAdmin)
+# admin.site.register(Renter)

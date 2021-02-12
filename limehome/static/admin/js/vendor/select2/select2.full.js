@@ -4489,7 +4489,7 @@ S2.define('select2/i18n/en',[],function () {
       return 'Loading more results…';
     },
     maximumSelected: function (args) {
-      var message = 'You can only select ' + args.maximum + ' item';
+      var messagemessage = 'You can only select ' + args.maximum + ' item';
 
       if (args.maximum != 1) {
         message += 's';

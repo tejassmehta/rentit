@@ -1,27 +1,26 @@
 {% extends 'base.html' %} 
 
 {% load humanize %}
-
+{% load mathfilters %}
 {% block title %} | Welcome {% endblock %}
 
 {% block content %}
 <!-- Showcase -->
-<section id="showcase">
+<section id="showcase" style="background-repeat:no-repeat; background-position:top center;background-attachment: fixed;background-size: cover; background-image: url('https://redmondmag.com/articles/2013/12/01/~/media/ECG/redmondmag/Images/introimages/1213red_DecMaker.ashx')">
     <div class="container text-center">
       <div class="home-search p-5">
         <div class="overlay p-5">
           <h1 class="display-4 mb-4" >
-            <strong>Quality Price Location</strong> 
+            <strong>Rent It!</strong>
           </h1>
-          <p class="lead">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae quas, asperiores eveniet vel nostrum magnam
-            voluptatum tempore! Consectetur, id commodi!</p>
+          <p class="lead">Why Buy, when you can Rent It! We give the best product listings for your renting solutions!</p>
           <div class="search">
             <form action="{% url 'search' %}">
               <!-- Form Row 1 -->
               <div class="form-row">
                 <div class="col-md-4 mb-3">
                   <label class="sr-only">Keywords</label>
-                  <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)">
+                  <input type="text" name="keywords" class="form-control" placeholder="Keyword (Jeans, Bicycle, etc)">
                 </div>
 
                 <div class="col-md-4 mb-3">
@@ -42,9 +41,9 @@
               <!-- Form Row 2 -->
               <div class="form-row">
                 <div class="col-md-6 mb-3">
-                  <label class="sr-only">Bedrooms</label>
+                  <label class="sr-only">Quantity</label>
                   <select name="bedrooms" class="form-control">
-                    <option selected="true" disabled="disabled">Bedrooms (All)</option>
+                    <option selected="true" disabled="disabled">Quantity (All)</option>
                     {% for key,value in bedroom_choices.items %}
                       <option value="{{ key }}">{{ value }}</option>
                     {% endfor %}
@@ -80,30 +79,30 @@
             <!-- Listing 1 -->
             <div class="col-md-6 col-lg-4 mb-4">
               <div class="card listing-preview">
-                <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+                <img class="card-img-top" src="{{ listing.image.0 |slice:"1:-1"}}" alt="" height="200!important" min-height="200!important">
                 <div class="card-img-overlay">
                   <h2>
-                    <span class="badge badge-secondary text-white">${{ listing.price | intcomma }}</span>
+                    <span class="badge badge-secondary text-white">${{ listing.discounted_price|intdiv:70 | intcomma }}</span>
                   </h2>
                 </div>
                 <div class="card-body">
                   <div class="listing-heading text-center">
-                    <h4 class="text-primary">{{ listing.title }}</h4>
+                    <h4 class="text-primary">{{ listing.product_name }}</h4>
                     <p>
-                      <i class="fas fa-map-marker text-secondary"></i> {{ listing.city }} {{ listing.state }}, {{ listing.zipcode }}</p>
+                      <i class="fas fa-map-marker text-secondary"></i> Ratings: {{ listing.overall_rating }}</p>
                   </div>
                   <hr>
-                  <div class="row py-2 text-secondary">
+                   <div class="row py-2 text-secondary">
                     <div class="col-6">
-                      <i class="fas fa-th-large"></i> Sqft: {{ listing.sqft }}</div>
+                      <i class="fas fa-th-large"></i> Brand: {{ listing.brand }}</div>
                     <div class="col-6">
-                      <i class="fas fa-car"></i> Garage: {{ listing.garage }}</div>
+                      <i class="fas fa-dollar-sign"></i> Retail Price: ${{ listing.retail_price |intdiv:70 | intcomma}}</div>
                   </div>
                   <div class="row py-2 text-secondary">
                     <div class="col-6">
-                      <i class="fas fa-bed"></i> Bedrooms: {{ listing.bedrooms }}</div>
+                      <i class="fas fa-deskpro" title="{{ listing.description }}"></i> Descriptions: {{ listing.description|slice:":20" }}</div>
                     <div class="col-6">
-                      <i class="fas fa-bath"></i> Bathrooms: {{ listing.bathrooms }}</div>
+                      <i class="fas fa-deploydog"></i> Next-Day Delivery: {{ listing.is_FK_Advantage_product|yesno:"Yes,No" }}</div>
                   </div>
                   <hr>
                   <div class="row py-2 text-secondary">
@@ -136,23 +135,20 @@
         <div class="col-md-4">
           <i class="fas fa-comment fa-4x mr-4"></i>
           <hr>
-          <h3>Consulting Services</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
-            hic dignissimos ratione ea quae.</p>
+          <h3>Any Queries?</h3>
+          <p>Leave us an email on contact@rentit.com</p>
         </div>
         <div class="col-md-4">
-          <i class="fas fa-home fa-4x mr-4"></i>
+          <i class="fas fa-address-book fa-4x mr-4"></i>
           <hr>
-          <h3>Propery Management</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
-            hic dignissimos ratione ea quae.</p>
+          <h3>About Us</h3>
+          <p>A rental service website that customers can post goods for rent, and also select goods to rent. This service will keep track of customers, the different objects for rent, and if they are available or in use currently. We will set this up for a few types of goods initially, and branch out to more, given time.</p>
         </div>
         <div class="col-md-4">
-          <i class="fas fa-suitcase fa-4x mr-4"></i>
+          <i class="fas fa-address-card fa-4x mr-4"></i>
           <hr>
-          <h3>Renting</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, debitis nam! Repudiandae, provident iste consequatur
-            hic dignissimos ratione ea quae.</p>
+          <h3>Address</h3>
+          <p>708 South Beech St, Syracuse New York 13210 Contact:- +1 315-380-9524</p>
         </div>
       </div>
     </div>

@@ -19,7 +19,7 @@ def contact(request):
             user_id = request.user.id
             has_contacted = Contact.objects.all().filter(listing_id=listing_id, user_id=user_id)
             if has_contacted:
-                messages.error(request, 'You have already made an inquiry for this listing')
+                messages.warning(request, 'You have already made an inquiry for this listing')
                 return redirect('/listings/'+listing_id)
 
         contact = Contact(listing=listing, listing_id=listing_id, name=name, email=email, phone=phone, message=message, user_id=user_id )
@@ -35,5 +35,5 @@ def contact(request):
         #   fail_silently=False
         # )
 
-        messages.success(request, 'Your request has been submitted, a realtor will get back to you soon')
+        messages.success(request, 'Your request has been submitted, a renter will get back to you soon')
         return redirect('/listings/'+listing_id)

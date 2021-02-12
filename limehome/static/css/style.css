@@ -51,7 +51,7 @@ img {
   background: url(../img/building.jpg) no-repeat top center fixed/cover;
   position: relative;
   overflow: hidden;
-  min-height: 200px; }
+  height: 120px; }
   #showcase-inner::before {
     content: '';
     position: absolute;

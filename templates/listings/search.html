@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% load humanize %}
-
+{% load mathfilters %}
 {% block title %} | Search Results {% endblock %}
 
 {% block content %}
@@ -14,7 +14,7 @@
             <div class="form-row">
               <div class="col-md-4 mb-3">
                 <label class="sr-only">Keywords</label>
-                <input type="text" name="keywords" class="form-control" placeholder="Keyword (Pool, Garage, etc)" value="{{ values.keywords }}">
+                <input type="text" name="keywords" class="form-control" placeholder="Keyword (Jeans,Bicycle, etc)" value="{{ values.keywords }}">
               </div>
 
               <div class="col-md-4 mb-3">
@@ -39,9 +39,9 @@
             <!-- Form Row 2 -->
             <div class="form-row">
               <div class="col-md-6 mb-3">
-                <label class="sr-only">Bedrooms</label>
+                <label class="sr-only">Quantity</label>
                 <select name="bedrooms" class="form-control">
-                  <option selected="true" disabled="disabled">Bedrooms (Any)</option>
+                  <option selected="true" disabled="disabled">Quantity (Any)</option>
                   {% for key,value in bedroom_choices.items %}
                       <option value="{{ key }}"
                       {% if key == values.bedrooms %}
@@ -97,30 +97,30 @@
           {% for listing in listings %}
           <div class="col-md-6 col-lg-4 mb-4">
               <div class="card listing-preview">
-                <img class="card-img-top" src="{{ listing.photo_main.url }}" alt="">
+                <img class="card-img-top" src="{{ listing.image.0 |slice:"1:-1"}}" alt="" height="200!important" min-height="200!important">
                 <div class="card-img-overlay">
                   <h2>
-                    <span class="badge badge-secondary text-white">${{ listing.price | intcomma }}</span>
+                    <span class="badge badge-secondary text-white">${{ listing.discounted_price|intdiv:70 | intcomma }}</span>
                   </h2>
                 </div>
                 <div class="card-body">
                   <div class="listing-heading text-center">
-                    <h4 class="text-primary">{{ listing.title }}</h4>
+                    <h4 class="text-primary">{{ listing.product_name }}</h4>
                     <p>
-                      <i class="fas fa-map-marker text-secondary"></i> {{ listing.city }} {{ listing.state }}, {{ listing.zipcode }}</p>
+                      <i class="fas fa-map-marker text-secondary"></i> Ratings: {{ listing.overall_rating }} </p>
                   </div>
                   <hr>
                   <div class="row py-2 text-secondary">
                     <div class="col-6">
-                      <i class="fas fa-th-large"></i> Sqft: {{ listing.sqft }}</div>
+                      <i class="fas fa-th-large"></i> Brand: {{ listing.brand }}</div>
                     <div class="col-6">
-                      <i class="fas fa-car"></i> Garage: {{ listing.garage }}</div>
+                      <i class="fas fa-dollar-sign"></i> Retail Price: ${{ listing.retail_price |intdiv:70 | intcomma}}</div>
                   </div>
-                  <div class="row py-2 text-secondary">
+                    <div class="row py-2 text-secondary">
                     <div class="col-6">
-                      <i class="fas fa-bed"></i> Bedrooms: {{ listing.bedrooms }}</div>
+                      <i class="fas fa-deskpro" title="{{ listing.description }}"></i> Descriptions: {{ listing.description|slice:":20" }}</div>
                     <div class="col-6">
-                      <i class="fas fa-bath"></i> Bathrooms: {{ listing.bathrooms }}</div>
+                      <i class="fas fa-deploydog"></i> Next-Day Delivery: {{ listing.is_FK_Advantage_product|yesno:"Yes,No" }}</div>
                   </div>
                   <hr>
                   <div class="row py-2 text-secondary">
